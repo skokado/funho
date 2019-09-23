@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Top{% endblock %}
+{% block body %}
+<div class="page-header theme-bg-dark py-5 text-center position-relative">
+	<div class="theme-bg-shapes-right"></div>
+	<div class="theme-bg-shapes-left"></div>
+	<div class="container">
+		<h1 class="page-heading single-col-max mx-auto">分報アプリ</h1>
+		<div class="page-intro single-col-max mx-auto">こまめなアウトプットを促進するアプリケーションです</div>
+	</div>
+</div>
+<div class="page-content">
+	<div class="container">
+		<div align="center">
+			<div class="docs-overview py-5">
+				<p>目的に応じた「トピック」を作成できます。</p>
+				<p><img src="{{ url_for('static', filename='images/introduction1.gif') }}"</p>
+				<p>「トピック」毎のタイムラインを作成できます。</p>
+				<p><img src="{{ url_for('static', filename='images/introduction2.webp') }}"</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

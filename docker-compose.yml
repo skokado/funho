@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  postgres:
+    image: postgres:11.5
+    container_name: "postgres"
+    env_file: postgres.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  app:
+    image: flask_app
+    container_name: "app"
+    command: flask run --host 0.0.0.0
+    ports:
+      - "5000:5000"
+    volumes:
+      - flask_migrations:/app/migrations
+    environment:
+      - FLASK_APP=run.py
+    env_file: postgres.env
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    external: true
+  flask_migrations:
+    external: true

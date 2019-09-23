@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %} - Funho</title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bootstrap Documentation Template For Software Developers">
+    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome JS-->
+    <script defer src="{{ url_for('static', filename='fontawesome/js/all.min.js') }}"></script>
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+
+</head>
+
+<body>
+  <!-- ログインモーダル -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">ログイン</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="form-signin" action="/login" method="post">
+            <div class="form-group">
+              <input type="text" name="name" class="form-control" id="inlineFormInputName" placeholder="ログインID">
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" id="inlineFormInputPassword"
+                placeholder="パスワード">
+            </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+            <button type="submit" class="btn btn-primary">ログイン</button>
+          </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+<!-- サインアップモーダル -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">サインアップ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form-signin" action="/login" method="post">
+          <div class="form-group">
+            <input type="text" name="name" class="form-control" id="inlineFormInputName" placeholder="ログインID">
+          </div>
+          <div class="form-group">
+            <input type="password" name="password" class="form-control" id="inlineFormInputPassword"
+              placeholder="パスワード">
+          </div>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+          <button type="submit" class="btn btn-primary">ログイン</button>
+        </form>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- ログアウトモーダル -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel">ログアウト</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ログアウトしますか？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+        <a href="{{ url_for('logout') }}" class="btn btn-danger d-lg-flex">ログアウト</a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+    <header class="header fixed-top">
+        <div class="branding docs-branding">
+            <div class="container-fluid position-relative py-2">
+                <div class="docs-logo-wrapper">
+	                <div class="site-logo"><a class="navbar-brand" href="/"><img class="logo-icon mr-2" src="{{ url_for('static', filename='images/coderdocs-logo.svg') }}" alt="logo"><span class="logo-text">Funho</span></span></a></div>
+                </div><!--//docs-logo-wrapper-->
+	            <div class="docs-top-utilities d-flex justify-content-end align-items-center">
+                    {% if current_user.is_authenticated %}
+                      <button type="button" class="btn btn-secondary d-lg-flex" data-toggle="modal" data-target="#logoutModal">ログアウト</button>
+                    {% else %}
+                      <a href='/signup'>
+                        <button type="button" class="btn btn-primary">Signup</button>
+                      </a>
+                        <div class="col-auto my-1">
+                          <button type="button" class="btn btn-secondary d-lg-flex" data-toggle="modal" data-target="#loginModal">Login</button>
+                        </div>
+                    {% endif %}
+	            </div><!--//docs-top-utilities-->
+            </div><!--//container-->
+        </div><!--//branding-->
+    </header><!--//header-->
+
+	{% block body %}{% endblock %}
+
+	<footer class="footer">
+	    <div class="footer-bottom text-center py-5">
+		    <ul class="social-list list-unstyled pb-4 mb-0">
+	            <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
+	        </ul><!--//social-list-->
+
+	        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+	    </div>
+    </footer>
+    <!-- Javascript -->
+    <script src="{{ url_for('static', filename='plugins/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <script defer>
+      $('#loginModal').on('shown.bs.modal', function () {
+        $('#inlineFormInputName').trigger('focus')
+      })
+      	// 投稿のマウスオーバーイベント
+          var elements = document.querySelectorAll('.card-trash');
+          for (var i = 0; i < elements.length; i++){
+            // console.log(elements[i]);
+            elements[i].addEventListener('mouseenter', () => {
+              elements[i].style.display = "block";
+            });
+            elements[i].addEventListener('mouseleave', () => {
+              elements[i].style.display = "none";
+            });
+          }
+    </script>
+</body>
+</html>
+

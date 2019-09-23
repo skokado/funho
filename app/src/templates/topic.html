@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}{{ topic.name }}{% endblock %}
+{% block body %}
+<!-- トピックアーカイブモーダル -->
+<div class="modal fade" id="archiveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="archiveModalLabel">確認</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="閉じる">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				このトピックをアーカイブしますか？
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+				<a href="{{ topic.uuid }}/archive" class="btn btn-danger d-lg-flex">アーカイブ</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="page-content">
+	<div class="container">
+		<div class="docs-overview py-5">
+			<h1>{{ topic.name }}</h1>
+			<div class="overflow-auto">
+			{% if not posts %}
+				分報を書いていきましょう
+			{% else %}
+				{% for post in posts %}
+				<div class="card shadow-sm">
+					<div class="card-body">
+							<div class="card-trash" align="right" style="display: none"><i class="fa fa-trash" aria-hidden="true"></i></div>
+						<div class="card-text">
+							{{  post.content }}
+							<br><small class="text-muted text-right">{{ post.created_at.strftime('%Y年%m月%d日 %H:%M:%S') }}</small>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			{% endif %}
+			</div>
+			<form class="align-items-center" action="/post/{{ topic.uuid }}" method="post">
+				<div class="form-group">
+					<textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3" onkeydown="if(event.ctrlKey&&event.keyCode==13){document.getElementById('postSubmit').click();return false};" placeholder="[Ctrl] + [Enter] キーで投稿できます"></textarea>
+				</div>
+				<button type="submit" id="postSubmit" class="btn btn-primary rounded-0">＋</button>
+			</form>
+			<button type="submit" id="archiveTopic" class="btn btn-danger rounded-0" data-toggle="modal" data-target="#archiveModal">このトピックをアーカイブ</button>
+		</div>
+	</div><!--//row-->
+</div><!--//page-content-->
+<script defer>
+	// 入力フォームにフォーカスする
+	document.getElementById('exampleFormControlTextarea1').focus();
+</script>
+{% endblock %}

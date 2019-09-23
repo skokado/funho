@@ -1,7 +1,7 @@
 from uuid import uuid4
 from datetime import datetime
 from flask import Flask
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.models.models import *
